@@ -1,8 +1,11 @@
 package com.deutsche.tradestore.repository;
 
-import com.deutsche.tradestore.models.Trade;
+import com.deutsche.tradestore.entity.Trade;
 import org.springframework.data.repository.CrudRepository;
 
-public interface TradeRepository extends CrudRepository<Trade, String> {
+import java.util.List;
 
+public interface TradeRepository extends CrudRepository<Trade, Integer> {
+
+    public List<Trade> findByTradeId(String tradeId);
 }

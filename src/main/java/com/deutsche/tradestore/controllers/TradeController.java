@@ -1,6 +1,7 @@
 package com.deutsche.tradestore.controllers;
 
-import com.deutsche.tradestore.models.Trade;
+import com.deutsche.tradestore.entity.Trade;
+import com.deutsche.tradestore.models.TradeDao;
 import com.deutsche.tradestore.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,21 +21,21 @@ public class TradeController {
     }
 
     @RequestMapping("trade/{id}")
-    public Optional<Trade> getTradeById(@PathVariable String id) {
-        return tradeService.getTradeById(id);
+    public List<Trade> getTradeById(@PathVariable String id) {
+        return tradeService.getTradeListById(id);
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/addTrade")
-    public String addTrade(@RequestBody Trade trade) {
-        tradeService.addTrade(trade);
+    public String addTrade(@RequestBody TradeDao tradeDao) {
+        tradeService.addTrade(tradeDao);
         return "SUCCESS";
     }
 
-    @RequestMapping(method=RequestMethod.POST, value="/updateTrade")
+    /*@RequestMapping(method=RequestMethod.POST, value="/updateTrade")
     public String updateTrade(@RequestBody Trade trade) {
         tradeService.addTrade(trade);
         return "SUCCESS";
-    }
+    }*/
 
     /*@RequestMapping(method=RequestMethod.PUT, value="/updateTrade/{id}")
     public String updateTradeById(@PathVariable String id){
@@ -42,9 +43,9 @@ public class TradeController {
         return "SUCCESS";
     }*/
 
-    @RequestMapping(method=RequestMethod.PUT, value="/deleteTrade/{id}")
+    /*@RequestMapping(method=RequestMethod.PUT, value="/deleteTrade/{id}")
     public String deleteTradeById(@PathVariable String id){
         tradeService.deleteTradeById(id);
         return "SUCCESS";
-    }
+    }*/
 }

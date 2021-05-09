@@ -1,13 +1,9 @@
 package com.deutsche.tradestore.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.time.LocalDate;
 
-@Entity
-public class Trade {
+public class TradeDao {
 
-    @Id
     private String tradeId;
     private String version;
     private String counterPartyId;
@@ -15,18 +11,6 @@ public class Trade {
     private LocalDate maturity;
     private LocalDate createdDate;
     private boolean expired;
-
-    public Trade(){}
-
-    public Trade(String tradeId, String version, String counterPartyId, String bookId, LocalDate  maturity, LocalDate  createdDate, boolean expired) {
-        this.tradeId = tradeId;
-        this.version = version;
-        this.counterPartyId = counterPartyId;
-        this.bookId = bookId;
-        this.maturity = maturity;
-        this.createdDate = createdDate;
-        this.expired = expired;
-    }
 
     public String getTradeId() {
         return tradeId;
