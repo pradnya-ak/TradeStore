@@ -12,6 +12,18 @@ public class TradeDao {
     private LocalDate createdDate;
     private boolean expired;
 
+    public TradeDao(){}
+
+    public TradeDao(String tradeId, Integer version, String counterPartyId, String bookId, LocalDate maturity, LocalDate createdDate, boolean expired) {
+        this.tradeId = tradeId;
+        this.version = version;
+        this.counterPartyId = counterPartyId;
+        this.bookId = bookId;
+        this.maturity = maturity;
+        this.createdDate = createdDate;
+        this.expired = expired;
+    }
+
     public String getTradeId() {
         return tradeId;
     }
