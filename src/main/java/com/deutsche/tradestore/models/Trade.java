@@ -2,7 +2,7 @@ package com.deutsche.tradestore.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Trade {
@@ -12,13 +12,13 @@ public class Trade {
     private String version;
     private String counterPartyId;
     private String bookId;
-    private Date maturity;
-    private Date createdDate;
+    private LocalDate maturity;
+    private LocalDate createdDate;
     private boolean expired;
 
     public Trade(){}
 
-    public Trade(String tradeId, String version, String counterPartyId, String bookId, Date maturity, Date createdDate, boolean expired) {
+    public Trade(String tradeId, String version, String counterPartyId, String bookId, LocalDate  maturity, LocalDate  createdDate, boolean expired) {
         this.tradeId = tradeId;
         this.version = version;
         this.counterPartyId = counterPartyId;
@@ -60,19 +60,19 @@ public class Trade {
         this.bookId = bookId;
     }
 
-    public Date getMaturity() {
+    public LocalDate getMaturity() {
         return maturity;
     }
 
-    public void setMaturity(Date maturity) {
+    public void setMaturity(LocalDate maturity) {
         this.maturity = maturity;
     }
 
-    public Date getCreatedDate() {
+    public LocalDate getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
 
