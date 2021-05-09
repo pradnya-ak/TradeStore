@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class TradeController {
@@ -20,32 +19,25 @@ public class TradeController {
         return tradeService.getAllTrades();
     }
 
-    @RequestMapping("trade/{id}")
+    @RequestMapping("/trade/{id}")
     public List<Trade> getTradeById(@PathVariable String id) {
         return tradeService.getTradeListById(id);
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/addTrade")
     public String addTrade(@RequestBody TradeDao tradeDao) {
-        tradeService.addTrade(tradeDao);
+        try{
+            tradeService.addTrade(tradeDao);
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
         return "SUCCESS";
     }
 
-    /*@RequestMapping(method=RequestMethod.POST, value="/updateTrade")
-    public String updateTrade(@RequestBody Trade trade) {
-        tradeService.addTrade(trade);
+    @RequestMapping("/updateExpiredFlag")
+    public String updateExpiredFlag(){
+        tradeService.updateExpiredFlag();
         return "SUCCESS";
-    }*/
-
-    /*@RequestMapping(method=RequestMethod.PUT, value="/updateTrade/{id}")
-    public String updateTradeById(@PathVariable String id){
-        tradeService.updateTradeById(id);
-        return "SUCCESS";
-    }*/
-
-    /*@RequestMapping(method=RequestMethod.PUT, value="/deleteTrade/{id}")
-    public String deleteTradeById(@PathVariable String id){
-        tradeService.deleteTradeById(id);
-        return "SUCCESS";
-    }*/
+    }
 }

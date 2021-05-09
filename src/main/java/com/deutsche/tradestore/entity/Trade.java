@@ -15,7 +15,7 @@ public class Trade {
     )
     private Integer id;
     private String tradeId;
-    private String version;
+    private Integer version;
     private String counterPartyId;
     private String bookId;
     private LocalDate maturity;
@@ -24,7 +24,7 @@ public class Trade {
 
     public Trade(){}
 
-    public Trade(String tradeId, String version, String counterPartyId, String bookId, LocalDate  maturity, LocalDate  createdDate, boolean expired) {
+    public Trade(String tradeId, Integer version, String counterPartyId, String bookId, LocalDate maturity, LocalDate createdDate, boolean expired) {
         this.tradeId = tradeId;
         this.version = version;
         this.counterPartyId = counterPartyId;
@@ -46,11 +46,11 @@ public class Trade {
         this.tradeId = tradeId;
     }
 
-    public String getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 

@@ -1,13 +1,15 @@
 package com.deutsche.tradestore.service;
 
 import com.deutsche.tradestore.entity.Trade;
+import com.deutsche.tradestore.exception.InvalidTradeException;
 import com.deutsche.tradestore.models.TradeDao;
 import com.deutsche.tradestore.repository.TradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TradeService {
@@ -22,34 +24,36 @@ public class TradeService {
     }
 
     public List<Trade> getTradeListById(String tradeId) {
-        return tradeRepository.findByTradeId(tradeId);
+        return tradeRepository.findByTradeIdOrderByVersionDesc(tradeId);
     }
 
-    public void addTrade(TradeDao tradeDao){
+    public void addTrade(TradeDao tradeDao) throws InvalidTradeException {
+
         Trade tradeToBeSaved = copyPropertiesOfTrade(tradeDao);
         List<Trade> tradeList = getTradeListById(tradeToBeSaved.getTradeId());
-        if(tradeList != null && tradeList.size() > 0){
-            //update
-            validateTrade(tradeList);
-        }
-        else{
-            //save
+        if(tradeList != null && tradeList.size() > 0) {
+            validateTrade(tradeList, tradeToBeSaved);
         }
         tradeRepository.save(tradeToBeSaved);
     }
 
-    /*public String deleteTradeById(String tradeId){
-        tradeRepository.deleteById(tradeId);
-        return "SUCCESS";
-    }*/
-
-    public void validateTrade(List<Trade> tradeList){
-
+    public void updateExpiredFlag(){
+       for( Trade trade : getAllTrades()){
+           if( trade.getMaturity().isBefore(LocalDate.now()) ){
+               trade.setExpired(true);
+               tradeRepository.save(trade);
+           }
+       }
     }
 
-    /*public void tradeExists(String tradeId){
-        getTradeById()
-    }*/
+    public void validateTrade(List<Trade> tradeList, Trade tradeToBeSaved) throws InvalidTradeException {
+
+        if ( tradeList.get(0).getVersion() > tradeToBeSaved.getVersion() )
+            throw new InvalidTradeException("Lower trade version. Please use higher version trade to save it.");
+        if( tradeToBeSaved.getMaturity().isBefore(LocalDate.now()) ){
+            throw new InvalidTradeException("Maturity date is less than current date. Please provide date greater than current date.");
+        }
+    }
 
     public Trade copyPropertiesOfTrade(TradeDao tradeDao){
         return new Trade(tradeDao.getTradeId(),

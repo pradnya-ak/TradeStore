@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TradeRepository extends CrudRepository<Trade, Integer> {
 
-    public List<Trade> findByTradeId(String tradeId);
+    public List<Trade> findByTradeIdOrderByVersionDesc(String tradeId);
 }

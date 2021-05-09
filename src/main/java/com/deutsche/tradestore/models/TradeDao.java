@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class TradeDao {
 
     private String tradeId;
-    private String version;
+    private Integer version;
     private String counterPartyId;
     private String bookId;
     private LocalDate maturity;
@@ -20,11 +20,11 @@ public class TradeDao {
         this.tradeId = tradeId;
     }
 
-    public String getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 
